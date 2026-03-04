@@ -64,6 +64,31 @@
             margin-bottom: 3rem;
         }
 
+        section {
+            margin-bottom: 3rem;
+        }
+
+        section h2 {
+            color: #4CAF50;
+            margin-bottom: 1rem;
+            border-bottom: 2px solid #4CAF50;
+            padding-bottom: 0.5rem;
+        }
+
+        .product-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin: 1rem 0;
+        }
+
+        .product-item {
+            background: #f4f4f4;
+            padding: 1rem;
+            border-radius: 8px;
+            border-left: 4px solid #4CAF50;
+        }
+
         footer {
             background: #333;
             color: white;
@@ -79,23 +104,82 @@
             <h1>Special Revere Fidget Toys</h1>
             <ul>
                 <li><a href="#home">Home</a></li>
-                <li><a href="#about">About</a></li>
-                <li><a href="#services">Services</a></li>
-                <li><a href="#contact">Contact</a></li>
+                <li><a href="#menu">Menu</a></li>
+                <li><a href="#location">Location</a></li>
+                <li><a href="#ideas">Ideas</a></li>
             </ul>
         </nav>
     </header>
 
     <main>
         <section class="hero">
-            <h2>Fidgets</h2>
-            <p>Types: Clickers, Extendable Eggs, Spinner Rings, Mouse Scroller, </p>
+            <h2>Welcome to Special Revere Fidget Toys</h2>
+            <p>High-quality fidget toys for focus, stress relief, and fun!</p>
         </section>
 
-        <section>
-            <h2>Overview</h2>
-            <p>We create high quality fidget toys for students and teachers alike</p>
-            <p><em>Update 2026-03-04: content refreshed by assistant.</em></p>
+        <section id="home">
+            <h2>Home</h2>
+            <p>We create premium fidget toys designed for students, teachers, professionals, and anyone who needs a moment of focus and calm. Our products are crafted with attention to detail and durability in mind.</p>
+            <p>Whether you're looking for the perfect desk toy or a gift for someone special, we have something for everyone.</p>
+        </section>
+
+        <section id="menu">
+            <h2>Menu (Products)</h2>
+            <p>Browse our collection of high-quality fidget toys:</p>
+            <div class="product-list">
+                <div class="product-item">
+                    <strong>Fidget Clickers</strong>
+                    <p>Satisfying click mechanism for smooth, quiet relief.</p>
+                </div>
+                <div class="product-item">
+                    <strong>Extendable Eggs</strong>
+                    <p>Unique expandable design with tactile feedback.</p>
+                </div>
+                <div class="product-item">
+                    <strong>Spinner Rings</strong>
+                    <p>Elegant rings with smooth spinning bands.</p>
+                </div>
+                <div class="product-item">
+                    <strong>Mouse Scroller</strong>
+                    <p>Desk toy with endless scrolling motion.</p>
+                </div>
+                <div class="product-item">
+                    <strong>Pop-It Boards</strong>
+                    <p>Bubble-popping sensation in various shapes.</p>
+                </div>
+                <div class="product-item">
+                    <strong>Stress Balls</strong>
+                    <p>Soft, squishy relief for hands and mind.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="location">
+            <h2>Location</h2>
+            <p><strong>Address:</strong> Special Revere, USA</p>
+            <p><strong>Contact:</strong> info@specialreverefidgets.com</p>
+            <p><strong>Hours:</strong> Monday - Friday: 9 AM - 6 PM | Saturday: 10 AM - 4 PM</p>
+            <p>Visit us in-store or order online for nationwide shipping!</p>
+        </section>
+
+        <section id="ideas">
+            <h2>Suggest New Ideas</h2>
+            <p>We love hearing from our customers! Have an idea for a new fidget toy or product? Share your suggestions below:</p>
+            <form style="margin-top: 1rem;">
+                <div style="margin-bottom: 1rem;">
+                    <label for="name" style="display: block; margin-bottom: 0.5rem; font-weight: bold;">Your Name:</label>
+                    <input type="text" id="name" name="name" style="width: 100%; padding: 0.5rem; border: 1px solid #ddd; border-radius: 4px;" placeholder="Enter your name" />
+                </div>
+                <div style="margin-bottom: 1rem;">
+                    <label for="email" style="display: block; margin-bottom: 0.5rem; font-weight: bold;">Email:</label>
+                    <input type="email" id="email" name="email" style="width: 100%; padding: 0.5rem; border: 1px solid #ddd; border-radius: 4px;" placeholder="Enter your email" />
+                </div>
+                <div style="margin-bottom: 1rem;">
+                    <label for="idea" style="display: block; margin-bottom: 0.5rem; font-weight: bold;">Your Idea:</label>
+                    <textarea id="idea" name="idea" rows="5" style="width: 100%; padding: 0.5rem; border: 1px solid #ddd; border-radius: 4px;" placeholder="Describe your fidget toy idea..."></textarea>
+                </div>
+                <button type="submit" style="background: #4CAF50; color: white; padding: 0.75rem 1.5rem; border: none; border-radius: 4px; cursor: pointer; font-size: 1rem;">Submit Idea</button>
+            </form>
         </section>
     </main>
 
