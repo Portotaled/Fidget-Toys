@@ -16,6 +16,13 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - name: Configure Pages
+        uses: actions/configure-pages@v2
+        with:
+          # ensure site is set to use workflow builds from main/root
+          branch: main
+          path: /
+
       - name: Upload artifact for GitHub Pages
         uses: actions/upload-pages-artifact@v4
         with:
