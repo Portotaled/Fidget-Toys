@@ -1,7 +1,7 @@
 // Get references to the HTML elements
 const itemInput = document.getElementById("itemInput");
-const addButton = document.getElementById("addButton");
-const itemList = document.getElementById("itemList");
+const addButton = document.getElementById("add2list");
+const itemList = document.getElementById("Customer_List");
 
 // Add an event listener to the button
 addButton.addEventListener("click", addListItem);
