@@ -1,30 +1,30 @@
-// Get references to the HTML elements
-const itemInput = document.getElementById("itemInput");
-const addButton = document.getElementById("add2list");
-const itemList = document.getElementById("Customer_List");
+<script>
 
-// Add an event listener to the button
-addButton.addEventListener("click", addListItem);
+const buttons = document.querySelectorAll(".add-btn");
 
-function addListItem() {
-    // Get the value from the input field and remove extra whitespace
-    const newItemText = itemInput.value.trim();
+const products = [];
+const prices = [];
 
-    // Check if the input value is not empty
-    if (newItemText !== "") {
-        // Create a new list item element
-        const newLi = document.createElement("li");
+buttons.forEach(button => {
+button.addEventListener("click", function(){
 
-        // Set the text content of the new list item to the user's input
-        newLi.textContent = newItemText;
+const productName = this.dataset.product;
+const productPrice = this.dataset.price;
 
-        // Append the new list item to the unordered list
-        itemList.appendChild(newLi);
+products.push(productName);
+prices.push(Number(productPrice));
 
-        // Clear the input field after adding the item
-        itemInput.value = "";
-        
-        // Optional: return focus to the input field
-        itemInput.focus();
-    }
-}
+const list = document.getElementById("itemList");
+
+const li = document.createElement("li");
+li.textContent = productName + " - $" + productPrice;
+
+list.appendChild(li);
+
+console.log("Products:", products);
+console.log("Prices:", prices);
+
+});
+});
+
+</script>
