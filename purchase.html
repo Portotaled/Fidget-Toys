@@ -1,3 +1,4 @@
+```html
 <!DOCTYPE html>
 <html lang="en">
 
@@ -17,6 +18,11 @@
             font-family: Arial, sans-serif;
             line-height: 1.6;
             color: #333;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
         }
 
         header {
@@ -115,139 +121,77 @@
 
         <section>
             <h2>Shopping List</h2>
-            
-            </div>
-            <form id="checkout" style="margin-top: 1rem;">
-                <ul id="itemList"></ul>
-                <div id="totalBox">
-                Total: $0
-                </div>
-                <button type="Submit Order"
-                style="background:#4CAF50;color:white;padding:0.75rem 1.5rem;border:none;border-radius:4px;cursor:pointer;font-size:1rem;">
-                Submit Idea
-                </button>
-            </form>
-            <script>
 
-                const scriptURL = "https://script.google.com/macros/s/AKfycbzHtwbASVQnD3V9Pa13KKXGagjcVDhNfbSVkbZ2uWcxwh2vwWlEqhg_OFmtwoXAl7_52w/exec";
-                const form = document.getElementById("checkout");
-                
-                form.addEventListener("submit", e => {
-                    e.preventDefault();
-                
-                    const formData = new FormData(form);
-                    const params = new URLSearchParams();
-                    formData.forEach((value, key) => {
-                        params.append(key, value);
-                    });
-                
-                    fetch(scriptURL, {
-                        method: "POST",
-                        mode: 'no-cors',        
-                        body: params
-                    })
-                    .then(() => {
-                        alert("Idea submitted successfully!");
-                        form.reset();
-                    })
-                    .catch(error => {
-                        console.error("submission error", error);
-                        alert("Error submitting idea");
-                    });
-                });
-            </script>
+            <form id="checkout" style="margin-top:1rem;">
+
+                <input type="text" name="name" placeholder="Your Name" required>
+
+                <ul id="itemList"></ul>
+
+                <div id="totalBox">
+                    Total: $0
+                </div>
+
+                <button type="submit">
+                    Submit Order
+                </button>
+
+            </form>
         </section>
 
         <section id="clickers">
-
             <h2>Clickers</h2>
 
             <div class="product-item">
                 <strong>Pizza</strong>
-
                 <img src="Clicker-Pizza.png" width="175">
-
                 <p>Price: $3</p>
-
-                <button
-                    class="add-btn"
-                    data-product="Pizza"
-                    data-price="3">
+                <button class="add-btn" data-product="Pizza" data-price="3">
                     Add to Shopping List
                 </button>
             </div>
 
             <div class="product-item">
                 <strong>Ramen Clicker</strong>
-
                 <img src="Clicker-Ramen.png" width="175">
-
                 <p>Price: $4</p>
-
-                <button
-                    class="add-btn"
-                    data-product="Ramen Clicker"
-                    data-price="4">
+                <button class="add-btn" data-product="Ramen Clicker" data-price="4">
                     Add to Shopping List
                 </button>
             </div>
 
             <div class="product-item">
                 <strong>Coke Crate</strong>
-
                 <img src="Clicker-Coke-Crate.png" width="175">
-
                 <p>Price: $3</p>
-
-                <button
-                    class="add-btn"
-                    data-product="Coke Crate"
-                    data-price="3">
+                <button class="add-btn" data-product="Coke Crate" data-price="3">
                     Add to Shopping List
                 </button>
             </div>
 
             <div class="product-item">
                 <strong>Keyboard</strong>
-
                 <img src="Clicker-Keyboard.png" width="175">
-
                 <p>Price: $5</p>
-
-                <button
-                    class="add-btn"
-                    data-product="Keyboard"
-                    data-price="5">
+                <button class="add-btn" data-product="Keyboard" data-price="5">
                     Add to Shopping List
                 </button>
             </div>
 
             <div class="product-item">
                 <strong>Rice</strong>
-
                 <img src="Clicker-Rice.png" width="175">
-
                 <p>Price: $3</p>
-
-                <button
-                    class="add-btn"
-                    data-product="Rice"
-                    data-price="3">
+                <button class="add-btn" data-product="Rice" data-price="3">
                     Add to Shopping List
                 </button>
             </div>
 
             <div class="product-item">
                 <strong>Hot Cocoa</strong>
-
                 <img src="Clicker-Cocoa.png" width="175">
-
                 <p>Price: $2</p>
-
-                <button
-                    class="add-btn"
-                    data-product="Hot Cocoa"
-                    data-price="2">
+                <button class="add-btn" data-product="Hot Cocoa" data-price="2">
                     Add to Shopping List
                 </button>
             </div>
@@ -255,21 +199,14 @@
         </section>
 
         <section id="other">
-
             <h2>Other</h2>
 
             <div class="product-item">
                 <strong>Extendable Eggs</strong>
-
                 <img src="Fidget-Egg.png" width="175">
                 <img src="Fidget-Egg-Extended.png" width="175">
-
                 <p>Price: $5</p>
-
-                <button
-                    class="add-btn"
-                    data-product="Extendable Eggs"
-                    data-price="5">
+                <button class="add-btn" data-product="Extendable Eggs" data-price="5">
                     Add to Shopping List
                 </button>
             </div>
@@ -277,18 +214,12 @@
         </section>
 
         <section id="propeller">
-
             <h2>Propeller</h2>
 
             <div class="product-item">
                 <strong>Propeller Launcher</strong>
-
                 <p>Price: $6 (+2 for upgrade propeller)</p>
-
-                <button
-                    class="add-btn"
-                    data-product="Propeller Launcher"
-                    data-price="6">
+                <button class="add-btn" data-product="Propeller Launcher" data-price="6">
                     Add to Shopping List
                 </button>
             </div>
@@ -302,6 +233,9 @@
     const buttons = document.querySelectorAll(".add-btn");
     const itemList = document.getElementById("itemList");
     const totalBox = document.getElementById("totalBox");
+    const form = document.getElementById("checkout");
+
+    const scriptURL = "https://script.google.com/macros/s/AKfycbzHtwbASVQnD3V9Pa13KKXGagjcVDhNfbSVkbZ2uWcxwh2vwWlEqhg_OFmtwoXAl7_52w/exec";
 
     let cart = JSON.parse(localStorage.getItem("cart")) || [];
 
@@ -310,7 +244,6 @@
     }
 
     function updateTotal() {
-
         let total = 0;
 
         cart.forEach(item => {
@@ -327,7 +260,6 @@
         cart.forEach((item, index) => {
 
             const li = document.createElement("li");
-
             li.textContent = item.name + " - $" + item.price;
 
             const removeBtn = document.createElement("button");
@@ -335,12 +267,9 @@
             removeBtn.className = "remove-btn";
 
             removeBtn.onclick = () => {
-
                 cart.splice(index, 1);
-
                 saveCart();
                 renderCart();
-
             };
 
             li.appendChild(removeBtn);
@@ -369,7 +298,51 @@
 
     renderCart();
 
+    form.addEventListener("submit", e => {
+
+        e.preventDefault();
+
+        const cartInput = document.createElement("input");
+        cartInput.type = "hidden";
+        cartInput.name = "cart";
+        cartInput.value = JSON.stringify(cart);
+
+        form.appendChild(cartInput);
+
+        const formData = new FormData(form);
+        const params = new URLSearchParams();
+
+        formData.forEach((value, key) => {
+            params.append(key, value);
+        });
+
+        fetch(scriptURL, {
+            method: "POST",
+            mode: "no-cors",
+            body: params
+        })
+        .then(() => {
+
+            alert("Order submitted!");
+
+            cart = [];
+            saveCart();
+            renderCart();
+
+            form.reset();
+
+        })
+        .catch(error => {
+
+            console.error("Submission error", error);
+            alert("Error submitting order");
+
+        });
+
+    });
+
 </script>
 
 </body>
 </html>
+```
