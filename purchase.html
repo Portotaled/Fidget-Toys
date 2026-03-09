@@ -102,6 +102,7 @@
 
     <header>
         <nav>
+
             <h1>Revere Fidget Toys</h1>
 
             <ul>
@@ -109,6 +110,7 @@
                 <li><a href="#other">Other</a></li>
                 <li><a href="#propeller">Propeller</a></li>
             </ul>
+
         </nav>
     </header>
 
@@ -120,6 +122,7 @@
         </section>
 
         <section>
+
             <h2>Shopping List</h2>
 
             <form id="checkout" style="margin-top:1rem;">
@@ -137,9 +140,11 @@
                 </button>
 
             </form>
+
         </section>
 
         <section id="clickers">
+
             <h2>Clickers</h2>
 
             <div class="product-item">
@@ -222,11 +227,11 @@
                     Add to Shopping List
                 </button>
             </div>
-            
 
         </section>
 
         <section id="other">
+
             <h2>Other</h2>
 
             <div class="product-item">
@@ -251,6 +256,7 @@
         </section>
 
         <section id="propeller">
+
             <h2>Propeller</h2>
 
             <div class="product-item">
@@ -265,120 +271,119 @@
 
     </main>
 
-<script>
+    <script>
 
-    const buttons = document.querySelectorAll(".add-btn");
-    const itemList = document.getElementById("itemList");
-    const totalBox = document.getElementById("totalBox");
-    const form = document.getElementById("checkout");
+        const buttons = document.querySelectorAll(".add-btn");
+        const itemList = document.getElementById("itemList");
+        const totalBox = document.getElementById("totalBox");
+        const form = document.getElementById("checkout");
 
-    const scriptURL = "https://script.google.com/macros/s/AKfycbyU5hjbC2mHHnctCjcnckOfNaWO5h_26seBUHY6FphPT-DL5RsLLnhkpISmyIG0LpVLaA/exec";
+        const scriptURL = "https://script.google.com/macros/s/AKfycbyU5hjbC2mHHnctCjcnckOfNaWO5h_26seBUHY6FphPT-DL5RsLLnhkpISmyIG0LpVLaA/exec";
 
-    let cart = JSON.parse(localStorage.getItem("cart")) || [];
+        let cart = JSON.parse(localStorage.getItem("cart")) || [];
 
-    function saveCart() {
-        localStorage.setItem("cart", JSON.stringify(cart));
-    }
+        function saveCart() {
+            localStorage.setItem("cart", JSON.stringify(cart));
+        }
 
-    function updateTotal() {
-        let total = 0;
+        function updateTotal() {
 
-        cart.forEach(item => {
-            total += item.price;
-        });
+            let total = 0;
 
-        totalBox.textContent = "Total: $" + total;
-    }
+            cart.forEach(item => {
+                total += item.price;
+            });
 
-    function renderCart() {
+            totalBox.textContent = "Total: $" + total;
+        }
 
-        itemList.innerHTML = "";
+        function renderCart() {
 
-        cart.forEach((item, index) => {
+            itemList.innerHTML = "";
 
-            const li = document.createElement("li");
-            li.textContent = item.name + " - $" + item.price;
+            cart.forEach((item, index) => {
 
-            const removeBtn = document.createElement("button");
-            removeBtn.textContent = "Remove";
-            removeBtn.className = "remove-btn";
+                const li = document.createElement("li");
+                li.textContent = item.name + " - $" + item.price;
 
-            removeBtn.onclick = () => {
-                cart.splice(index, 1);
+                const removeBtn = document.createElement("button");
+                removeBtn.textContent = "Remove";
+                removeBtn.className = "remove-btn";
+
+                removeBtn.onclick = () => {
+                    cart.splice(index, 1);
+                    saveCart();
+                    renderCart();
+                };
+
+                li.appendChild(removeBtn);
+                itemList.appendChild(li);
+
+            });
+
+            updateTotal();
+        }
+
+        buttons.forEach(button => {
+
+            button.addEventListener("click", function () {
+
+                const name = this.dataset.product;
+                const price = Number(this.dataset.price);
+
+                cart.push({ name, price });
+
                 saveCart();
                 renderCart();
+
+            });
+
+        });
+
+        renderCart();
+
+        form.addEventListener("submit", function (e) {
+
+            e.preventDefault();
+
+            if (cart.length === 0) {
+                alert("Your cart is empty!");
+                return;
+            }
+
+            const orderData = {
+                name: form.name.value,
+                cart: JSON.stringify(cart)
             };
 
-            li.appendChild(removeBtn);
-            itemList.appendChild(li);
+            fetch(scriptURL, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/x-www-form-urlencoded"
+                },
+                body: new URLSearchParams(orderData)
+            })
+            .then(() => {
+
+                alert("Order submitted!");
+
+                cart = [];
+                localStorage.removeItem("cart");
+
+                renderCart();
+                form.reset();
+
+            })
+            .catch(error => {
+
+                console.error("Submission error:", error);
+                alert("Order failed to send.");
+
+            });
 
         });
 
-        updateTotal();
-    }
-
-    buttons.forEach(button => {
-
-        button.addEventListener("click", function () {
-
-            const name = this.dataset.product;
-            const price = Number(this.dataset.price);
-
-            cart.push({ name, price });
-
-            saveCart();
-            renderCart();
-
-        });
-
-    });
-
-    renderCart();
-
-    form.addEventListener("submit", e => {
-
-        e.preventDefault();
-
-        const cartInput = document.createElement("input");
-        cartInput.type = "hidden";
-        cartInput.name = "cart";
-        cartInput.value = JSON.stringify(cart);
-
-        form.appendChild(cartInput);
-
-        const formData = new FormData(form);
-        const params = new URLSearchParams();
-
-        formData.forEach((value, key) => {
-            params.append(key, value);
-        });
-
-        fetch(scriptURL, {
-            method: "POST",
-            mode: "no-cors",
-            body: params
-        })
-        .then(() => {
-
-            alert("Order submitted!");
-
-            cart = [];
-            saveCart();
-            renderCart();
-
-            form.reset();
-
-        })
-        .catch(error => {
-
-            console.error("Submission error", error);
-            alert("Error submitting order");
-
-        });
-
-    });
-
-</script>
+    </script>
 
 </body>
 </html>
