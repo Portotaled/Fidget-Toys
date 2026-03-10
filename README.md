@@ -11,4 +11,5 @@
 ![Egg](Fidget-Egg.png)
 ![Egg-Extended](Fidget-Egg-Extended.png)
 ![Mouse Scroller](Mouse-Scroller.png)
-
+![Croissant](Clicker-Croissant.png)
+![Boba](Boba-Switch.png)
