@@ -270,58 +270,94 @@
     </main>
 
     <script>
-        const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbyRmZht3wUemZ3k1HacEfzUyhdyi1aIdjsfnrMawJMkK89V2yC71UuGFmWWgi59fEoi3w/exec"; // Replace with your deployed Web App URL
+
+        const buttons = document.querySelectorAll(".add-btn");
         
         const products = [];
         const prices = [];
         
-        // Add products to cart
-        document.addEventListener("click", function(event){
-          if(event.target.classList.contains("add-btn")){
-            const productName = event.target.dataset.product;
-            const productPrice = Number(event.target.dataset.price);
+        const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbyRmZht3wUemZ3k1HacEfzUyhdyi1aIdjsfnrMawJMkK89V2yC71UuGFmWWgi59fEoi3w/exec";
         
-            products.push(productName);
-            prices.push(productPrice);
+        function updateTotal(){
         
-            const list = document.getElementById("itemList");
-            const li = document.createElement("li");
-            li.textContent = productName + " - $" + productPrice;
-            list.appendChild(li);
+            let total = prices.reduce((a,b)=>a+b,0);
         
-            updateTotal();
-          }
+            const promo = document.getElementById("promoCode").value;
+        
+            if(promo === "STUFF"){
+                total = total * 0.9;
+            }
+        
+            document.getElementById("totalBox").textContent =
+                "Total: $" + total.toFixed(2);
+        }
+        
+        document.getElementById("promoCode")
+            .addEventListener("input", updateTotal);
+        
+        
+        buttons.forEach(button => {
+        
+            button.addEventListener("click", function(){
+        
+                const productName = this.dataset.product;
+                const productPrice = this.dataset.price;
+        
+                products.push(productName);
+                prices.push(Number(productPrice));
+        
+                const list = document.getElementById("itemList");
+        
+                const li = document.createElement("li");
+        
+                li.textContent = productName + " - $" + productPrice;
+        
+                list.appendChild(li);
+        
+                updateTotal();
+        
+                console.log("Products:", products);
+                console.log("Prices:", prices);
+        
+            });
+        
         });
         
-        // Update total price
-        function updateTotal(){
-          const total = prices.reduce((a,b)=>a+b,0);
-          document.getElementById("totalBox").textContent = "Total: $" + total.toFixed(2);
-        }
         
-        // Send order via GET
         function sendOrder(){
-          const name = document.getElementById("customerName").value.trim();
-          const promo = document.getElementById("promoCode").value.trim();
         
-          if(!name){
-            alert("Please enter your full name (and homeroom).");
-            return;
-          }
-          if(products.length === 0){
-            alert("Your cart is empty!");
-            return;
-          }
+            const name = document.getElementById("customerName").value;
+            const promo = document.getElementById("promoCode").value;
         
-          const cart = products.join(", ");
-          const url = WEB_APP_URL
-            + "?name=" + encodeURIComponent(name)
-            + "&cart=" + encodeURIComponent(cart)
-            + "&promo=" + encodeURIComponent(promo);
+            const cart = products.join(", ");
         
-          // Redirect browser to Web App URL to trigger Apps Script
-          window.location.href = url;
+            const data = new URLSearchParams();
+        
+            data.append("name", name);
+            data.append("cart", cart);
+            data.append("promo", promo);
+        
+            fetch(WEB_APP_URL, {
+        
+                method: "POST",
+                mode: "no-cors",
+                body: data
+        
+            })
+            .then(() => {
+        
+                alert("Order sent successfully!, Your product should arrive within 5 days.");
+        
+            })
+            .catch(error => {
+        
+                console.error(error);
+                alert("Order failed to send.");
+        
+            });
+        
         }
+        
     </script>
 
 </body>
