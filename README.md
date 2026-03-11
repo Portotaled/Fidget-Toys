@@ -6,7 +6,7 @@
 ![Cupcake](Clicker-Keyboard.png)
 ![Pizza](Clicker-Pizza.png)
 ![Ramen](Clicker-Ramen.png)
-![Rice](Clicker-Rice.png)
+![Rice](Clicker-Rice.jpeg)
 ![Spinner Ring](Clicker-Spinner-Ring.png)
 ![Egg](Fidget-Egg.png)
 ![Egg-Extended](Fidget-Egg-Extended.png)
