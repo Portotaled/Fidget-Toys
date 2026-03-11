@@ -335,7 +335,7 @@
         
             data.append("name", name);
             data.append("cart", cart);
-            data.append("promo", promo);
+            data.append("promo", promo || "");
         
             fetch(WEB_APP_URL, {
         
