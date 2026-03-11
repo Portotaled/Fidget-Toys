@@ -270,77 +270,55 @@
     </main>
 
     <script>
-
-        const buttons = document.querySelectorAll(".add-btn");
+        const WEB_APP_URL = "https://script.google.com/macros/s/YOUR_SCRIPT_ID_HERE/exec"; // replace with your deployed web app URL
         
         const products = [];
         const prices = [];
         
-        const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbyU5hjbC2mHHnctCjcnckOfNaWO5h_26seBUHY6FphPT-DL5RsLLnhkpISmyIG0LpVLaA/exec";
+        document.addEventListener("click", function(event) {
+          if (event.target.classList.contains("add-btn")) {
+            const productName = event.target.dataset.product;
+            const productPrice = Number(event.target.dataset.price);
         
-        function updateTotal(){
+            products.push(productName);
+            prices.push(productPrice);
         
-            let total = prices.reduce((a,b)=>a+b,0);
+            const list = document.getElementById("itemList");
+            const li = document.createElement("li");
         
-            const promo = document.getElementById("promoCode").value;
+            li.textContent = productName + " - $" + productPrice;
+            list.appendChild(li);
         
-            if(promo === "STUFF"){
-                total = total * 0.9;
-            }
-        
-            document.getElementById("totalBox").textContent =
-                "Total: $" + total.toFixed(2);
-        }
-        
-        document.getElementById("promoCode")
-            .addEventListener("input", updateTotal);
-        
-        
-        buttons.forEach(button => {
-        
-            button.addEventListener("click", function(){
-        
-                const productName = this.dataset.product;
-                const productPrice = this.dataset.price;
-        
-                products.push(productName);
-                prices.push(Number(productPrice));
-        
-                const list = document.getElementById("itemList");
-        
-                const li = document.createElement("li");
-        
-                li.textContent = productName + " - $" + productPrice;
-        
-                list.appendChild(li);
-        
-                updateTotal();
-        
-                console.log("Products:", products);
-                console.log("Prices:", prices);
-        
-            });
-        
+            updateTotal();  // keep total updated
+          }
         });
         
-        
-        function sendOrder(){
-
-            const name = document.getElementById("customerName").value;
-            const promo = document.getElementById("promoCode").value;
-        
-            const cart = products.join(", ");
-        
-            const url =
-                WEB_APP_URL +
-                "?name=" + encodeURIComponent(name) +
-                "&cart=" + encodeURIComponent(cart) +
-                "&promo=" + encodeURIComponent(promo);
-        
-            window.location.href = url;
-        
+        function updateTotal(){
+          const total = prices.reduce((a,b) => a + b, 0);
+          document.getElementById("totalBox").textContent = "Total: $" + total.toFixed(2);
         }
         
+        function sendOrder(){
+          const name = document.getElementById("customerName").value.trim();
+          const promo = document.getElementById("promoCode").value.trim();
+        
+          if (!name){
+            alert("Please enter your full name (and homeroom).");
+            return;
+          }
+          if (products.length === 0){
+            alert("Your cart is empty!");
+            return;
+          }
+        
+          const cart = products.join(", ");
+          const url = WEB_APP_URL
+            + "?name=" + encodeURIComponent(name)
+            + "&cart=" + encodeURIComponent(cart)
+            + "&promo=" + encodeURIComponent(promo);
+        
+          window.location.href = url;
+        }
     </script>
 
 </body>
