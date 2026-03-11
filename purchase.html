@@ -270,13 +270,14 @@
     </main>
 
     <script>
-        const WEB_APP_URL = "https://script.google.com/macros/s/YOUR_SCRIPT_ID_HERE/exec"; // replace with your deployed web app URL
+        const WEB_APP_URL = "https://script.google.com/macros/s/YOUR_SCRIPT_ID_HERE/exec"; // Replace with your deployed Web App URL
         
         const products = [];
         const prices = [];
         
-        document.addEventListener("click", function(event) {
-          if (event.target.classList.contains("add-btn")) {
+        // Add products to cart
+        document.addEventListener("click", function(event){
+          if(event.target.classList.contains("add-btn")){
             const productName = event.target.dataset.product;
             const productPrice = Number(event.target.dataset.price);
         
@@ -285,28 +286,29 @@
         
             const list = document.getElementById("itemList");
             const li = document.createElement("li");
-        
             li.textContent = productName + " - $" + productPrice;
             list.appendChild(li);
         
-            updateTotal();  // keep total updated
+            updateTotal();
           }
         });
         
+        // Update total price
         function updateTotal(){
-          const total = prices.reduce((a,b) => a + b, 0);
+          const total = prices.reduce((a,b)=>a+b,0);
           document.getElementById("totalBox").textContent = "Total: $" + total.toFixed(2);
         }
         
+        // Send order via GET
         function sendOrder(){
           const name = document.getElementById("customerName").value.trim();
           const promo = document.getElementById("promoCode").value.trim();
         
-          if (!name){
+          if(!name){
             alert("Please enter your full name (and homeroom).");
             return;
           }
-          if (products.length === 0){
+          if(products.length === 0){
             alert("Your cart is empty!");
             return;
           }
@@ -317,6 +319,7 @@
             + "&cart=" + encodeURIComponent(cart)
             + "&promo=" + encodeURIComponent(promo);
         
+          // Redirect browser to Web App URL to trigger Apps Script
           window.location.href = url;
         }
     </script>
