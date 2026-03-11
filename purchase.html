@@ -337,14 +337,7 @@
                 "&cart=" + encodeURIComponent(cart) +
                 "&promo=" + encodeURIComponent(promo);
         
-            fetch(url)
-            .then(() => {
-                alert("Order sent successfully! Your product should arrive within 5 days.");
-            })
-            .catch(error => {
-                console.error(error);
-                alert("Order failed to send.");
-            });
+            window.location.href = url;
         
         }
         
